@@ -2,15 +2,16 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import GradientText from './GradientText';
-const ProgressBarChild = () => {
+const ProgressBarChild = ({value}) => {
+
   return (
     <View
       style={{
         overflow: 'hidden',
-        borderRadius: 150,
+        borderRadius: 190,
         borderWidth: 3,
-        width: 205,
-        height: 205,
+        width: 215,
+        height: 215,
       }}>
       <View
         style={{
@@ -24,7 +25,7 @@ const ProgressBarChild = () => {
           angle={125}
           style={styles.linearGradient}>
           <Text style={{color: '#D4D4D4', fontWeight: 'bold', fontSize: 40}}>
-            25,234
+          {value}
           </Text>
           <Text style={{color: '#D4D4D4', fontSize: 20, marginTop: 10}}>
             Points until Elite

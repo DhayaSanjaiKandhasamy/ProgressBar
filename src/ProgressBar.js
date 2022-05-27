@@ -1,23 +1,45 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import {CircularProgressBase} from 'react-native-circular-progress-indicator';
+import {Text, View,StyleSheet} from 'react-native';
+import {AnimatedCircularProgress} from 'react-native-circular-progress';
+
 import ProgressChild from './ProgressBarChild';
 const ProgressBar = () => {
+  const TOTAL_POINTS = 30000;
+  const EARNED_POINTS = 25000;
   return (
-    <View>
-      <CircularProgressBase
-        value={80}
-        radius={115}
+    <View
+      style={styles.progressContainer}>
+      <AnimatedCircularProgress
+        size={235}
+        width={15}
+        fill={(EARNED_POINTS / TOTAL_POINTS) * 100}
         rotation={180}
-        inActiveStrokeWidth={15}
-        activeStrokeWidth={15}
-        inActiveStrokeColor={'#292727'}
-        strokeLinecap='square'
-        activeStrokeColor={'#CE8900'}
-        activeStrokeSecondaryColor={'#F2DC87'}>
-        <ProgressChild />
-      </CircularProgressBase>
+        duration={2000}
+        tintColor="#CE8900"
+        backgroundColor="#292727"
+        style={{
+          borderColor: 'rgba(212, 212, 212,0.1)',
+          borderWidth: 1,
+          borderRadius: 200,
+        }}>
+        {fill => {
+          const points = (Math.round((fill * TOTAL_POINTS) / 100) + '').replace(
+            /.(?=(?:.{3})+$)/g,
+            '$&,',
+          );
+          return <ProgressChild value={points} />;
+        }}
+      </AnimatedCircularProgress>
     </View>
   );
 };
 export default ProgressBar;
+const styles = StyleSheet.create({
+  progressContainer:{
+    marginTop: 20,
+    borderColor: 'rgba(212, 212, 212,0.2)',
+    borderWidth: 2,
+    padding: 15,
+    borderRadius: 200,
+  }
+})
